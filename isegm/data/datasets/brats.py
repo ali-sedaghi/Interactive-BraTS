@@ -9,6 +9,8 @@ from isegm.data.aligned_augmentation import AlignedAugmentator
 import torch
 import matplotlib.pyplot as plt
 import numpy as np
+import random
+import re
 
 
 class BraTSDataset(ISDataset):
@@ -18,9 +20,30 @@ class BraTSDataset(ISDataset):
         self.ch = ch
         self.name = "BraTS"
         self.one_input_channel = one_input_channel
-        self.data_path = Path(data_path) / split
+        self.data_path = Path(data_path)
 
-        self.data = [x.name for x in natsorted(self.data_path.glob('*.*'))]
+        n_all = 369
+        n_train = int(n_all * 75 / 100)
+        n_val = n_all - n_train
+
+        random.seed(10)
+        all_indexes = list(range(1, n_all + 1))
+        train_indexes = natsorted(random.sample(all_indexes, n_train))
+        val_indexes = natsorted(list(set(all_indexes) - set(train_indexes)))
+
+        if split == "train":
+            indexes = train_indexes
+        else:
+            indexes = val_indexes
+
+        file_names = [x.name for x in natsorted(self.data_path.glob('*.*'))]
+        self.data = []
+
+        for f_name in file_names:
+            vol_num = int(f_name.split("_")[1])
+            if vol_num in indexes:
+                self.data.append(f_name)
+
         self.dataset_samples = range(len(self.data))
 
     def get_sample(self, index) -> DSample:
@@ -56,7 +79,7 @@ if __name__ == "__main__":
                                            distribution='Gaussian', gs_center=0.8, gs_sd=0.4)
 
     dataset = BraTSDataset('train', ch, one_input_channel=False,
-                          data_path="D:\Works\Final Project\Interactive-BraTS\data\datasets\BraTS",
+                          data_path="D:\Works\Final Project\datasets\BraTS\BraTS2020_training_data\content\data",
                            augmentator=train_augmentator)
 
     dataloader = DataLoader(dataset, shuffle=True)
