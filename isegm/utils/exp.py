@@ -77,19 +77,20 @@ def init_experiment(args, model_name):
     cfg.multi_gpu = cfg.ngpus > 1
 
     if cfg.distributed:
-        cfg.device = torch.device('cuda')  # GPU
-        # cfg.device = torch.device('cpu')  # CPU
-        cfg.gpu_ids = [cfg.gpu_ids[cfg.local_rank]]  # GPU
-        torch.cuda.set_device(cfg.gpu_ids[0])  # GPU
+        cfg.device = torch.device('cuda')
+        cfg.device = torch.device('cpu')  # Comment on CPU
+        cfg.gpu_ids = [cfg.gpu_ids[cfg.local_rank]]
+        torch.cuda.set_device(cfg.gpu_ids[0])
     else:
         if cfg.multi_gpu:
-            os.environ['CUDA_VISIBLE_DEVICES'] = cfg.gpus  # GPU
-            # ngpus = torch.cuda.device_count()
+            pass
+            os.environ['CUDA_VISIBLE_DEVICES'] = cfg.gpus
+            ngpus = torch.cuda.device_count()
             # Added by Xavier
             # cfg.gpu_ids = [i for i in range(ngpus)]
             # assert ngpus == cfg.ngpus
-        cfg.device = torch.device(f'cuda:{cfg.gpu_ids[0]}')  # GPU
-        # cfg.device = torch.device('cpu')  # CPU
+        cfg.device = torch.device(f'cuda:{cfg.gpu_ids[0]}')
+        cfg.device = torch.device('cpu')  # Comment on CPU
 
     if cfg.local_rank == 0:
         add_logging(cfg.LOGS_PATH, prefix='train_')
