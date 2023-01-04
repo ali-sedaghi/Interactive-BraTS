@@ -78,7 +78,7 @@ def init_experiment(args, model_name):
 
     if cfg.distributed:
         cfg.device = torch.device('cuda')
-        cfg.device = torch.device('cpu')  # Comment on CPU
+        # cfg.device = torch.device('cpu')  # Comment on CPU
         cfg.gpu_ids = [cfg.gpu_ids[cfg.local_rank]]
         torch.cuda.set_device(cfg.gpu_ids[0])
     else:
@@ -90,7 +90,7 @@ def init_experiment(args, model_name):
             # cfg.gpu_ids = [i for i in range(ngpus)]
             # assert ngpus == cfg.ngpus
         cfg.device = torch.device(f'cuda:{cfg.gpu_ids[0]}')
-        cfg.device = torch.device('cpu')  # Comment on CPU
+        # cfg.device = torch.device('cpu')  # Comment on CPU
 
     if cfg.local_rank == 0:
         add_logging(cfg.LOGS_PATH, prefix='train_')
