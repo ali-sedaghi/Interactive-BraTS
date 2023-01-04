@@ -21,15 +21,17 @@ class BraTSDataset(ISDataset):
         self.one_input_channel = one_input_channel
         self.data_path = Path(data_path) / split
 
-        self.dataset_samples = [x.name for x in natsorted(self.data_path.glob('*.*'))]
+        self.data = [x.name for x in natsorted(self.data_path.glob('*.*'))]
+        self.dataset_samples = range(len(self.data))
 
     def get_sample(self, index) -> DSample:
-        filename = self.data_path / self.dataset_samples[index]
+        filename = self.data_path / self.data[index]
         f = h5py.File(filename, "r")
         image_key = list(f.keys())[0]
         mask_key = list(f.keys())[1]
         image_np = f[image_key][()]     # (240, 240, 4)
         mask_np = f[mask_key][()]       # (240, 240, 3)
+        f.close()
 
         img = image_np[:, :, int(self.ch)]  # (240, 240)
         img = (img - np.min(img)) / (np.max(img) - np.min(img) + 1) * 255
@@ -44,15 +46,15 @@ class BraTSDataset(ISDataset):
 
 
 if __name__ == "__main__":
-    label = "1"
-    ch = "2"
+    ch = "0"
+    label = "0"
 
     train_augmentator = AlignedAugmentator(ratio=[0.3, 1.3], target_size=(96, 96), flip=True,
                                            distribution='Gaussian', gs_center=0.8, gs_sd=0.4)
 
-    dataset = BraTSDataset('val', label, ch, one_input_channel=False,
-                          data_path="D:\Works\Final Project\ClickSEG\data\datasets\BraTS",
-                           augmentator=train_augmentator,)
+    dataset = BraTSDataset('train', label, ch, one_input_channel=False,
+                          data_path="D:\Works\Final Project\Interactive-BraTS\data\datasets\BraTS",
+                           augmentator=train_augmentator)
 
     dataloader = DataLoader(dataset, shuffle=True)
     x = next(iter(dataloader))
@@ -66,7 +68,7 @@ if __name__ == "__main__":
     instance = x['instances'][0, 0]
 
     f, axs = plt.subplots(1, 2)
-    axs[0].imshow(image, cmap="viridis")
+    axs[0].imshow(image)
     axs[1].imshow(image)
     axs[1].imshow(instance, alpha=0.5 * instance, cmap="Reds")
     plt.show()
