@@ -2,9 +2,7 @@ from isegm.utils.exp_imports.default import *
 from isegm.engine.cdnet_trainer import ISTrainer
 from isegm.data.aligned_augmentation import AlignedAugmentator
 
-LABEL = "0"
-CH = "0"
-MODEL_NAME = f'cdnet_res34_L{LABEL}_C{CH}'
+MODEL_NAME = f'cdnet_res34'
 
 
 def main(cfg):
@@ -55,8 +53,6 @@ def train(model, cfg, model_cfg):
 
     trainset = BraTSDataset(
         split='train',
-        label=LABEL,
-        ch=CH,
         augmentator=train_augmentator,
         min_object_area=80,
         keep_background_prob=0.01,
@@ -65,8 +61,6 @@ def train(model, cfg, model_cfg):
 
     valset = BraTSDataset(
         split='val',
-        label=LABEL,
-        ch=CH,
         augmentator=val_augmentator,
         min_object_area=80,
         points_sampler=points_sampler,

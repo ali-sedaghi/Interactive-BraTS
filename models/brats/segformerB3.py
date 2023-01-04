@@ -3,9 +3,7 @@ from isegm.data.aligned_augmentation import AlignedAugmentator
 from isegm.engine.focalclick_trainer import ISTrainer
 import torch.nn as nn
 
-LABEL = "0"
-CH = "0"
-MODEL_NAME = f'segformerB3_L{LABEL}_C{CH}'
+MODEL_NAME = f'segformerB3'
 
 
 def main(cfg):
@@ -58,8 +56,6 @@ def train(model, cfg, model_cfg):
 
     trainset = BraTSDataset(
         split='train',
-        label=LABEL,
-        ch=CH,
         one_input_channel=False,
         augmentator=train_augmentator,
         min_object_area=0,
@@ -69,8 +65,6 @@ def train(model, cfg, model_cfg):
 
     valset = BraTSDataset(
         split='val',
-        label=LABEL,
-        ch=CH,
         one_input_channel=False,
         augmentator=val_augmentator,
         min_object_area=0,

@@ -3,9 +3,7 @@ import torch.nn as nn
 from isegm.data.aligned_augmentation import AlignedAugmentator
 from isegm.engine.focalclick_trainer import ISTrainer
 
-LABEL = "0"
-CH = "0"
-MODEL_NAME = f'hrnet32_L{LABEL}_C{CH}'
+MODEL_NAME = f'hrnet32'
 
 def main(cfg):
     model, model_cfg = init_model(cfg)
@@ -59,8 +57,6 @@ def train(model, cfg, model_cfg):
 
     trainset = BraTSDataset(
         split='train',
-        label=LABEL,
-        ch=CH,
         one_input_channel=False,
         augmentator=train_augmentator,
         min_object_area=0,
@@ -70,8 +66,6 @@ def train(model, cfg, model_cfg):
 
     valset = BraTSDataset(
         split='val',
-        label=LABEL,
-        ch=CH,
         one_input_channel=False,
         augmentator=val_augmentator,
         min_object_area=0,
