@@ -67,6 +67,12 @@ def parse_args():
 
     parser.add_argument("--local_rank", type=int, default=0)
 
+    parser.add_argument('--epochs', type=int, default=2,
+                        help='Number of epochs.')
+
+    parser.add_argument('--datapath', type=str, default=None,
+                        help='Dataset path.')
+
     return parser.parse_args()
 
 

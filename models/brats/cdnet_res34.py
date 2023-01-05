@@ -52,7 +52,7 @@ def train(model, cfg, model_cfg):
                                        first_click_center=True)
 
     trainset = BraTSDataset(
-        data_path=cfg.BRATS_PATH,
+        data_path=cfg.datapath,
         split='train',
         augmentator=train_augmentator,
         min_object_area=80,
@@ -61,7 +61,7 @@ def train(model, cfg, model_cfg):
     )
 
     valset = BraTSDataset(
-        data_path=cfg.BRATS_PATH,
+        data_path=cfg.datapath,
         split='val',
         augmentator=val_augmentator,
         min_object_area=80,
@@ -87,4 +87,4 @@ def train(model, cfg, model_cfg):
                         max_interactive_points=model_cfg.num_max_points,
                         max_num_next_clicks=0)
 
-    trainer.run(num_epochs=5)
+    trainer.run(num_epochs=cfg.epochs)
