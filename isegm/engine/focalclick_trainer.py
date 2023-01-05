@@ -7,7 +7,7 @@ from collections import defaultdict
 import cv2
 import torch
 import numpy as np
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 from time import time
 from torch.utils.data import DataLoader
 
