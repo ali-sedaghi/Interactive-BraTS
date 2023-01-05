@@ -1,6 +1,6 @@
 INTERACTIVE_MODELS_PATH: "."
 EXPS_PATH: "./experiments"
-BRATS_PATH: "/content/BraTS"
+BRATS_PATH: "/kaggle/input/brats2020-training-data/BraTS2020_training_data/content/data"
 
 IMAGENET_PRETRAINED_MODELS:
   HRNETV2_W18_SMALL: "./data/weights/hrnet_w18_small_model_v2.pth"
