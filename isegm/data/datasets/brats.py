@@ -35,7 +35,7 @@ class BraTSDataset(ISDataset):
         else:
             indexes = val_indexes
 
-        file_names = [x.name for x in natsorted(self.data_path.glob('*.*'))]
+        file_names = [x.name for x in natsorted(self.data_path.glob('*.h5'))]
         self.data = []
 
         for f_name in file_names:
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     train_augmentator = AlignedAugmentator(ratio=[0.3, 1.3], target_size=(96, 96), flip=True,
                                            distribution='Gaussian', gs_center=0.8, gs_sd=0.4)
 
-    dataset = BraTSDataset('train', ch, one_input_channel=False,
+    dataset = BraTSDataset('train', ch=ch, one_input_channel=False,
                           data_path="D:\Works\Final Project\Interactive-BraTS\data\BraTS\\brats-unzipped\BraTS2020_training_data\content\data",
                            augmentator=train_augmentator)
 
