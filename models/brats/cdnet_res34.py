@@ -87,4 +87,4 @@ def train(model, cfg, model_cfg):
                         max_interactive_points=model_cfg.num_max_points,
                         max_num_next_clicks=0)
 
-    trainer.run(num_epochs=5)
+    trainer.run(num_epochs=cfg.epochs)
