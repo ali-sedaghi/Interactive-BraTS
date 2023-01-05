@@ -10,11 +10,10 @@ import torch
 import matplotlib.pyplot as plt
 import numpy as np
 import random
-import re
 
 
 class BraTSDataset(ISDataset):
-    def __init__(self, split, ch=0, one_input_channel=False, data_path="./data/datasets/BraTS/", **kwargs):
+    def __init__(self, split, ch=0, one_input_channel=False, data_path="./data/BraTS/brats-unzipped/BraTS2020_training_data/content/data", **kwargs):
         super(BraTSDataset, self).__init__(**kwargs)
         assert split in ['train', 'val']
         self.ch = ch
@@ -79,7 +78,7 @@ if __name__ == "__main__":
                                            distribution='Gaussian', gs_center=0.8, gs_sd=0.4)
 
     dataset = BraTSDataset('train', ch, one_input_channel=False,
-                          data_path="D:\Works\Final Project\datasets\BraTS\BraTS2020_training_data\content\data",
+                          data_path="D:\Works\Final Project\Interactive-BraTS\data\BraTS\\brats-unzipped\BraTS2020_training_data\content\data",
                            augmentator=train_augmentator)
 
     dataloader = DataLoader(dataset, shuffle=True)
