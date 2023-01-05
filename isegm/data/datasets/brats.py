@@ -13,7 +13,7 @@ import random
 
 
 class BraTSDataset(ISDataset):
-    def __init__(self, split, ch=0, one_input_channel=False, data_path="./data/BraTS/brats-unzipped/BraTS2020_training_data/content/data", **kwargs):
+    def __init__(self, split, ch=0, one_input_channel=False, data_path="/content/BraTS", **kwargs):
         super(BraTSDataset, self).__init__(**kwargs)
         assert split in ['train', 'val']
         self.ch = ch

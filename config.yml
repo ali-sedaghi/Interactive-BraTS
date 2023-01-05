@@ -1,6 +1,6 @@
 INTERACTIVE_MODELS_PATH: "."
 EXPS_PATH: "./experiments"
-BRATS_PATH: "./data/BraTS/brats-unzipped/BraTS2020_training_data/content/data"
+BRATS_PATH: "/content/BraTS"
 
 IMAGENET_PRETRAINED_MODELS:
   HRNETV2_W18_SMALL: "./data/weights/hrnet_w18_small_model_v2.pth"
