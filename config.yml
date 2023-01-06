@@ -5,4 +5,4 @@ BRATS_PATH: "/kaggle/input/brats2020-training-data/BraTS2020_training_data/conte
 IMAGENET_PRETRAINED_MODELS:
   HRNETV2_W18_SMALL: "./data/weights/hrnet_w18_small_model_v2.pth"
   HRNETV2_W32: "./data/weights/hrnetv2_w32_imagenet_pretrained.pth"
-  SEGFORMER_B3: "./data/weights/Segformer/mit_b3.pth"
+  SEGFORMER_B3: "./data/weights/Segformer/mit_b3.pth-fake"
