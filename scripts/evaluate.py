@@ -41,9 +41,14 @@ def parse_args():
                              'Datasets are separated by a comma. Possible choices: '
                              'GrabCut, Berkeley, DAVIS, SBD, PascalVOC')
 
-    parser.add_argument('--structure', type=str, default=None,
-                        help='In case of the pancreas dataset, which anatomical structure dataset should be chosen.'
-                             'E.g. aorta or common bile duct')
+    parser.add_argument('--datapath', type=str, default=None,
+                        help='Dataset path.')
+
+    parser.add_argument('--channel', default='flair', choices=['flair', 't1', 't1ce', 't2', 'mix'],
+                        help='MRI channel. (mix is: flair+t1ce+t2)')
+
+    parser.add_argument('--label', default='wt', choices=['net', 'ed', 'et', 'wt', 'tc'],
+                        help='Region for BraTS segmentation.')
 
     group_device = parser.add_mutually_exclusive_group()
     group_device.add_argument('--gpus', type=str, default='0',
@@ -113,7 +118,11 @@ def main():
     args, cfg = parse_args()
 
     checkpoints_list, logs_path, logs_prefix = get_checkpoints_list_and_logs_path(args, cfg)
-    cfg.structure = args.structure
+    cfg.datapath = args.datapath
+    cfg.structure = f"{args.channel}_{args.label}"
+    cfg.channel = args.channel
+    cfg.label = args.label
+    args.structure = cfg.structure
 
     single_model_eval = len(checkpoints_list) == 1
     print_header = True

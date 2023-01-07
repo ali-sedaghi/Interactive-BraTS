@@ -6,4 +6,6 @@ python ./scripts/train.py ./models/brats/segformerB3.py\
   --cpu\
   --workers=2\
   --datapath=./data/datasets/BraTS\
+  --channel=mix\
+  --label=wt\
   --pretrained

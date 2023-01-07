@@ -1,6 +1,5 @@
 INTERACTIVE_MODELS_PATH: "."
 EXPS_PATH: "./experiments"
-BRATS_PATH: "D:/Works/Final-Project/BraTS/BraTS"  # For evaluation. Trainer gets datapath arg
 
 IMAGENET_PRETRAINED_MODELS:
   GLUON_RESNET34_V1B: "./data/weights/gluon_resnet34_v1b-c6d82d59.pth"

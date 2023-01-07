@@ -49,9 +49,9 @@ def load_single_is_model(state_dict, device, **kwargs):
 
 def get_dataset(dataset_name, cfg):
     if dataset_name == "BraTS_Train":
-        dataset = BraTSDataset(data_path=cfg.BRATS_PATH, split='train')
+        dataset = BraTSDataset(data_path=cfg.datapath, channel=cfg.channel, label=cfg.label, split='train')
     elif dataset_name == "BraTS_Val":
-        dataset = BraTSDataset(data_path=cfg.BRATS_PATH, split='val')
+        dataset = BraTSDataset(data_path=cfg.datapath, channel=cfg.channel, label=cfg.label, split='val')
     else:
         dataset = None
     return dataset

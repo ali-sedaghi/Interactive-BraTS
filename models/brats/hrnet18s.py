@@ -59,6 +59,8 @@ def train(model, cfg, model_cfg):
 
     trainset = BraTSDataset(
         data_path=cfg.datapath,
+        channel=cfg.channel,
+        label=cfg.label,
         split='train',
         augmentator=train_augmentator,
         min_object_area=20,
@@ -68,6 +70,8 @@ def train(model, cfg, model_cfg):
 
     valset = BraTSDataset(
         data_path=cfg.datapath,
+        channel=cfg.channel,
+        label=cfg.label,
         split='val',
         augmentator=val_augmentator,
         min_object_area=20,
