@@ -73,6 +73,9 @@ def parse_args():
     parser.add_argument('--datapath', type=str, default=None,
                         help='Dataset path.')
 
+    parser.add_argument('--oncpu', type=str, default='n',
+                        help='Active CPU if y.')
+
     return parser.parse_args()
 
 

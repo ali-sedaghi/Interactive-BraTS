@@ -77,7 +77,7 @@ def parse_args():
                         help='The model name that is used for making plots.')
     parser.add_argument('--config-path', type=str, default='./config.yml',
                         help='The path to the config file.')
-    parser.add_argument('--logs-path', type=str, default='',
+    parser.add_argument('--logs-path', type=str, default='D:\Works\Final Project\Interactive-BraTS\experiments',
                         help='The path to the evaluation logs. Default path: cfg.EXPS_PATH/evaluation_logs.')
     parser.add_argument('--infer-size', type=int, default=384,
                         help='Inference input size for the model')
