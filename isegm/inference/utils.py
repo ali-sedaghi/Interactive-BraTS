@@ -64,6 +64,8 @@ def get_iou(gt_mask, pred_mask, ignore_label=-1):
     intersection = np.logical_and(np.logical_and(pred_mask, obj_gt_mask), ignore_gt_mask_inv).sum()
     union = np.logical_and(np.logical_or(pred_mask, obj_gt_mask), ignore_gt_mask_inv).sum()
 
+    if union == 0:
+        return 1.0
     return intersection / union
 
 
@@ -74,6 +76,8 @@ def get_dice(gt_mask, pred_mask, ignore_label=-1):
     intersection = np.logical_and(np.logical_and(pred_mask, obj_gt_mask), ignore_gt_mask_inv).sum()
     sum_area = np.sum(pred_mask) + np.sum(obj_gt_mask)
 
+    if sum_area == 0:
+        return 1.0
     return 2 * intersection / sum_area
 
 
