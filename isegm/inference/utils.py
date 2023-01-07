@@ -4,8 +4,7 @@ from pathlib import Path
 import torch
 import numpy as np
 
-from isegm.data.datasets import GrabCutDataset, BerkeleyDataset, DavisDataset, SBDEvaluationDataset, PascalVocDataset
-from isegm.data.datasets import Davis585Dataset, COCOMValDataset, PancDataset, BraTSDataset
+from isegm.data.datasets import BraTSDataset
 
 from isegm.utils.serialization import load_model
 
@@ -49,34 +48,10 @@ def load_single_is_model(state_dict, device, **kwargs):
 
 
 def get_dataset(dataset_name, cfg):
-    if dataset_name == 'GrabCut':
-        dataset = GrabCutDataset(cfg.GRABCUT_PATH)
-    elif dataset_name == 'Berkeley':
-        dataset = BerkeleyDataset(cfg.BERKELEY_PATH)
-    elif dataset_name == 'DAVIS':
-        dataset = DavisDataset(cfg.DAVIS_PATH)
-    elif dataset_name == 'SBD':
-        dataset = SBDEvaluationDataset(cfg.SBD_PATH)
-    elif dataset_name == 'SBD_Train':
-        dataset = SBDEvaluationDataset(cfg.SBD_PATH, split='train')
-    elif dataset_name == 'PascalVOC':
-        dataset = PascalVocDataset(cfg.PASCALVOC_PATH, split='val')
-    elif dataset_name == 'COCO_MVal':
-        dataset = COCOMValDataset(cfg.COCO_MVAL_PATH)
-    elif dataset_name == 'D585_SP':
-        dataset = Davis585Dataset(cfg.DAVIS585_PATH, init_mask_mode='sp')
-    elif dataset_name == 'D585_STM':
-        dataset = Davis585Dataset(cfg.DAVIS585_PATH, init_mask_mode='stm')
-    elif dataset_name == 'D585_ZERO':
-        dataset = Davis585Dataset(cfg.DAVIS585_PATH, init_mask_mode='zero')
-    elif dataset_name == "Panc_val":
-        dataset = PancDataset(split='val', label=cfg.structure)
-    elif dataset_name == "Panc_test":
-        dataset = PancDataset(split='test', label=cfg.structure)
-    elif dataset_name == "BraTS_Train":
-        dataset = BraTSDataset(cfg.BRATS_PATH, split='train')
+    if dataset_name == "BraTS_Train":
+        dataset = BraTSDataset(data_path=cfg.BRATS_PATH, split='train')
     elif dataset_name == "BraTS_Val":
-        dataset = BraTSDataset(cfg.BRATS_PATH, split='val')
+        dataset = BraTSDataset(data_path=cfg.BRATS_PATH, split='val')
     else:
         dataset = None
     return dataset
