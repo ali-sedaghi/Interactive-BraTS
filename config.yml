@@ -1,6 +1,6 @@
 INTERACTIVE_MODELS_PATH: "."
 EXPS_PATH: "./experiments"
-BRATS_PATH: "./data/datasets/BraTS"
+BRATS_PATH: "D:/Works/Final-Project/BraTS/BraTS"  # For evaluation. Trainer gets datapath arg
 
 IMAGENET_PRETRAINED_MODELS:
   HRNETV2_W18_SMALL: "./data/weights/hrnet_w18_small_model_v2.pth"

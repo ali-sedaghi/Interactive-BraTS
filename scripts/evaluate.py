@@ -7,7 +7,6 @@ import cv2
 import torch
 import numpy as np
 import os
-import regex as re
 
 sys.path.insert(0, '.')
 from isegm.inference import utils
@@ -77,7 +76,7 @@ def parse_args():
                         help='The model name that is used for making plots.')
     parser.add_argument('--config-path', type=str, default='./config.yml',
                         help='The path to the config file.')
-    parser.add_argument('--logs-path', type=str, default='D:\Works\Final Project\Interactive-BraTS\experiments',
+    parser.add_argument('--logs-path', type=str, default='',
                         help='The path to the evaluation logs. Default path: cfg.EXPS_PATH/evaluation_logs.')
     parser.add_argument('--infer-size', type=int, default=384,
                         help='Inference input size for the model')
@@ -114,19 +113,17 @@ def main():
     args, cfg = parse_args()
 
     checkpoints_list, logs_path, logs_prefix = get_checkpoints_list_and_logs_path(args, cfg)
-    print(f"checkpoints: {checkpoints_list}\n\n")
     cfg.structure = args.structure
-    logs_path.mkdir(parents=True, exist_ok=True)
 
     single_model_eval = len(checkpoints_list) == 1
     print_header = True
     for dataset_name in args.datasets.split(','):
         dataset = utils.get_dataset(dataset_name, cfg)
-        # print(dataset_name)
 
         for checkpoint_path in checkpoints_list:
             print(f"Evaluating checkpoint {checkpoint_path}")
             logs_path_ch = logs_path / checkpoint_path.stem
+            logs_path_ch.mkdir(parents=True, exist_ok=True)
 
             if os.path.exists(logs_path_ch):  # skips evaluation if log path exists and holds all data already
                 if check_txt_pickle(logs_path_ch):
@@ -150,8 +147,7 @@ def main():
                                                min_clicks=args.min_n_clicks,
                                                max_clicks=args.n_clicks,
                                                vis=args.vis,
-                                               vis_path=logs_path_ch / 'predictions_vis'
-                                               )
+                                               vis_path=logs_path_ch / 'predictions_vis')
 
             row_name = args.mode if single_model_eval else checkpoint_path.stem
             if args.iou_analysis:
@@ -214,9 +210,8 @@ def get_checkpoints_list_and_logs_path(args, cfg):
 
         logs_path = args.logs_path
     else:
-        # checkpoints_list = [Path(utils.find_checkpoint(cfg.INTERACTIVE_MODELS_PATH, args.checkpoint))]
         checkpoints_list = [Path(utils.find_checkpoint(args.model_dir, args.checkpoint))]
-        logs_path = args.logs_path / 'others' / checkpoints_list[0].stem
+        logs_path = args.logs_path / 'other'
 
     return checkpoints_list, logs_path, logs_prefix
 
@@ -224,7 +219,6 @@ def get_checkpoints_list_and_logs_path(args, cfg):
 def save_results(args, row_name, dataset_name, logs_path, logs_prefix, dataset_results,
                  save_ious=False, print_header=True, single_model_eval=False):
     all_ious, all_dices, elapsed_time = dataset_results
-    # print(all_ious)
     mean_spc, mean_spi = utils.get_time_metrics(all_ious, elapsed_time)
 
     iou_thrs = np.arange(0.8, min(0.95, args.target_iou) + 0.001, 0.05).tolist()

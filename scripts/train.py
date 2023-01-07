@@ -1,8 +1,10 @@
+import sys
 import os
 import argparse
 import importlib.util
 
 import torch
+sys.path.insert(0, '.')
 from isegm.utils.exp import init_experiment
 
 

@@ -9,7 +9,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, '.')
+sys.path.insert(0, '')
 from isegm.utils.exp import load_config_file
 
 
