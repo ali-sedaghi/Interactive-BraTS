@@ -217,6 +217,7 @@ class ISTrainer(object):
             f.write(str(self.epoch_train_loss))
 
     def validation(self, epoch):
+        do_save = False
         if self.sw is None and self.is_master:
             self.sw = SummaryWriterAvg(log_dir=str(self.cfg.LOGS_PATH),
                                        flush_secs=10, dump_period=self.tb_dump_period)
@@ -261,6 +262,10 @@ class ISTrainer(object):
                 print(f"Metric get epoch value: {val_metric}")
 
                 if metric.name == 'DiceScore':
+                    if len(self.epoch_val_dice) > 0:
+                        do_save = val_metric > max(self.epoch_val_dice)
+                    elif len(self.epoch_val_dice) == 0:
+                        do_save = True
                     self.epoch_val_dice.append(val_metric)
                 elif metric.name == "AdaptiveIoU":
                     self.epoch_val_iou.append(val_metric)
@@ -268,9 +273,9 @@ class ISTrainer(object):
                     pass
                     print("Metric not saved")
 
-        if (epoch + 1) % 1 == 0:
+        if ((epoch + 1) % 1 == 0) and do_save:
             save_checkpoint(self.net, self.cfg.CHECKPOINTS_PATH, prefix=self.task_prefix, epoch=None,
-                            multi_gpu=self.cfg.multi_gpu, name=f"epoch-{epoch}-val-loss-{val_loss / len(tbar):.2f}")
+                            multi_gpu=self.cfg.multi_gpu, name=f"last_checkpoint")
 
         self.epoch_val_loss.append(val_loss / len(tbar))
         with open("./" + str(self.cfg.CHECKPOINTS_PATH) + r"/val_losses.txt", "w") as f:
