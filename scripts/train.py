@@ -50,6 +50,9 @@ def parse_args():
     parser.add_argument('--gpus', type=str, default='', required=False,
                         help='Ids of used GPUs. You should use either this argument or "--ngpus".')
 
+    parser.add_argument('--cpu', action='store_true', default=False,
+                        help='Use only CPU for training.')
+
     parser.add_argument('--resume-exp', type=str, default=None,
                         help='The prefix of the name of the experiment to be continued. '
                              'If you use this field, you must specify the "--resume-prefix" argument.')
@@ -74,9 +77,6 @@ def parse_args():
 
     parser.add_argument('--datapath', type=str, default=None,
                         help='Dataset path.')
-
-    parser.add_argument('--oncpu', type=str, default='n',
-                        help='Active CPU if y.')
 
     return parser.parse_args()
 

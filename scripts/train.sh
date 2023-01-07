@@ -3,6 +3,6 @@ python ./scripts/train.py ./models/brats/segformerB3.py\
   --epochs=2\
   --batch-size=2\
   --ngpus=0\
-  --oncpu=y\
+  --cpu\
   --workers=2\
   --datapath=./data/datasets/BraTS
