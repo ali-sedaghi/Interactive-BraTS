@@ -26,7 +26,7 @@ class ISTrainer(object):
                  optimizer='adam',
                  optimizer_params=None,
                  image_dump_interval=200,
-                 checkpoint_interval=10,
+                 checkpoint_interval=1,
                  tb_dump_period=25,
                  max_interactive_points=0,
                  lr_scheduler=None,

@@ -29,7 +29,7 @@ class ISTrainer(object):
                  optimizer='adam',
                  optimizer_params=None,
                  image_dump_interval=200,
-                 checkpoint_interval=10,
+                 checkpoint_interval=1,
                  tb_dump_period=25,
                  max_interactive_points=0,
                  lr_scheduler=None,
@@ -268,7 +268,7 @@ class ISTrainer(object):
                     pass
                     print("Metric not saved")
 
-        if (epoch + 1) % 10 == 0:
+        if (epoch + 1) % 1 == 0:
             save_checkpoint(self.net, self.cfg.CHECKPOINTS_PATH, prefix=self.task_prefix, epoch=None,
                             multi_gpu=self.cfg.multi_gpu, name=f"epoch-{epoch}-val-loss-{val_loss / len(tbar):.2f}")
 
