@@ -18,7 +18,8 @@ def init_model(cfg):
                          use_rgb_conv=False, use_disks=True, norm_radius=1, with_prev_mask=True)
     model.to(cfg.device)
     model.apply(initializer.XavierGluon(rnd_type='gaussian', magnitude=2.0))
-    model.feature_extractor.load_pretrained_weights()
+    if cfg.pretrained:
+        model.feature_extractor.load_pretrained_weights(path=cfg.IMAGENET_PRETRAINED_MODELS.GLUON_RESNET34_V1B)
     return model, model_cfg
 
 

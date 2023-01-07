@@ -232,17 +232,11 @@ def resnet18_v1b(pretrained=False, **kwargs):
     return model
 
 
-def resnet34_v1b(pretrained=False, **kwargs):
+def resnet34_v1b(pretrained=False, path="", **kwargs):
     model = ResNetV1b(BasicBlockV1b, [3, 4, 6, 3], **kwargs)
     if pretrained:
         model_dict = model.state_dict()
-        '''
-        filtered_orig_dict = _safe_state_dict_filtering(
-            torch.hub.load(GLUON_RESNET_TORCH_HUB, 'gluon_resnet34_v1b', pretrained=True).state_dict(),
-            model_dict.keys()
-        )
-        '''
-        filtered_orig_dict = torch.load('./data/weights/gluon_resnet34_v1b-c6d82d59.pth',map_location='cpu')#['state_dict']
+        filtered_orig_dict = torch.load(path, map_location='cpu')
         model_dict.update(filtered_orig_dict)
         model.load_state_dict(model_dict)
     return model
@@ -252,12 +246,10 @@ def resnet50_v1s(pretrained=False, **kwargs):
     model = ResNetV1b(BottleneckV1b, [3, 4, 6, 3], deep_stem=True, stem_width=64, **kwargs)
     if pretrained:
         model_dict = model.state_dict()
-        '''
         filtered_orig_dict = _safe_state_dict_filtering(
             torch.hub.load(GLUON_RESNET_TORCH_HUB, 'gluon_resnet50_v1s', pretrained=True).state_dict(),
             model_dict.keys()
-        )'''
-        filtered_orig_dict = torch.load('/home/admin/workspace/project/data/weights/gluon_resnet50_v1s-1762acc0.pth',map_location='cpu')#['state_dict']
+        )
         model_dict.update(filtered_orig_dict)
         model.load_state_dict(model_dict)
     return model

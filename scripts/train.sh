@@ -5,4 +5,5 @@ python ./scripts/train.py ./models/brats/segformerB3.py\
   --ngpus=0\
   --cpu\
   --workers=2\
-  --datapath=./data/datasets/BraTS
+  --datapath=./data/datasets/BraTS\
+  --pretrained

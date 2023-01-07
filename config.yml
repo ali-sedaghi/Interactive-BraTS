@@ -3,6 +3,7 @@ EXPS_PATH: "./experiments"
 BRATS_PATH: "D:/Works/Final-Project/BraTS/BraTS"  # For evaluation. Trainer gets datapath arg
 
 IMAGENET_PRETRAINED_MODELS:
+  GLUON_RESNET34_V1B: "./data/weights/gluon_resnet34_v1b-c6d82d59.pth"
   HRNETV2_W18_SMALL: "./data/weights/hrnet_w18_small_model_v2.pth"
   HRNETV2_W32: "./data/weights/hrnetv2_w32_imagenet_pretrained.pth"
   SEGFORMER_B3: "./data/weights/Segformer/mit_b3.pth"

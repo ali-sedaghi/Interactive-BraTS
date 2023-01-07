@@ -20,7 +20,8 @@ def init_model(cfg):
                            use_leaky_relu=True, use_rgb_conv=False, use_disks=True, norm_radius=1,
                            binary_prev_mask=False, with_prev_mask=True, with_aux_output=True)
     model.to(cfg.device)
-    # model.feature_extractor.load_pretrained_weights(cfg.IMAGENET_PRETRAINED_MODELS.SEGFORMER_B3)
+    if cfg.pretrained:
+        model.feature_extractor.load_pretrained_weights(cfg.IMAGENET_PRETRAINED_MODELS.SEGFORMER_B3)
     return model, model_cfg
 
 

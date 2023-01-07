@@ -78,6 +78,9 @@ def parse_args():
     parser.add_argument('--datapath', type=str, default=None,
                         help='Dataset path.')
 
+    parser.add_argument('--pretrained', action='store_true', default=False,
+                        help='Train model from pretrained weights.')
+
     return parser.parse_args()
 
 
