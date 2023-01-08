@@ -24,7 +24,7 @@ class BraTSDataset(ISDataset):
         super(BraTSDataset, self).__init__(**kwargs)
         assert channel in ['flair', 't1', 't1ce', 't2', 'mix']
         assert label in ['net', 'ed', 'et', 'wt', 'tc']
-        assert split in ['train', 'val']
+        assert split in ['train', 'val', 'test']
         self.data_path = Path(data_path)
         self.channel = channel
         self.label = label
@@ -32,6 +32,7 @@ class BraTSDataset(ISDataset):
 
         n_all = 369
         n_train = int(n_all * 75 / 100)
+        n_test = int(n_all * 5 / 100)
 
         random.seed(10)
         all_indexes = list(range(1, n_all + 1))
@@ -40,8 +41,10 @@ class BraTSDataset(ISDataset):
 
         if split == "train":
             indexes = train_indexes
-        else:
+        elif split == "val":
             indexes = val_indexes
+        elif split == "test":
+            indexes = natsorted(random.sample(val_indexes, n_test))
 
         file_names = [x.name for x in natsorted(self.data_path.glob('*.h5'))]
         self.data = []

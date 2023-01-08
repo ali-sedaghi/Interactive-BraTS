@@ -97,8 +97,6 @@ def parse_args():
         args.device = torch.device('cpu')
     else:
         args.device = torch.device(f"cuda:{args.gpus.split(',')[0]}")
-    print(args.device)
-    print(torch.cuda.get_device_name(0))
 
     if (args.iou_analysis or args.print_ious) and args.min_n_clicks <= 1:
         args.target_iou = 1.01

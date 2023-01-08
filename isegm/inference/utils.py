@@ -52,6 +52,8 @@ def get_dataset(dataset_name, cfg):
         dataset = BraTSDataset(data_path=cfg.datapath, channel=cfg.channel, label=cfg.label, split='train')
     elif dataset_name == "BraTS_Val":
         dataset = BraTSDataset(data_path=cfg.datapath, channel=cfg.channel, label=cfg.label, split='val')
+    elif dataset_name == "BraTS_Test":
+        dataset = BraTSDataset(data_path=cfg.datapath, channel=cfg.channel, label=cfg.label, split='test')
     else:
         dataset = None
     return dataset
