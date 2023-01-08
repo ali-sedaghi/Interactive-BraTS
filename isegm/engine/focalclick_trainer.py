@@ -273,7 +273,7 @@ class ISTrainer(object):
 
         if ((epoch + 1) % 1 == 0) and do_save:
             save_checkpoint(self.net, self.cfg.CHECKPOINTS_PATH, prefix=self.task_prefix, epoch=None,
-                            multi_gpu=self.cfg.multi_gpu, name=f"last_checkpoint")
+                            multi_gpu=self.cfg.multi_gpu, name=f"best_checkpoint")
 
         self.epoch_val_loss.append(val_loss / len(tbar))
         with open("./" + str(self.cfg.CHECKPOINTS_PATH) + r"/val_losses.txt", "w") as f:
