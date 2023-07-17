@@ -1,7 +1,7 @@
 python ./scripts/evaluate.py FocalClick\
   --model_dir=./experiments/brats/segformerB3/000_FocalClick-SegFormerB3/checkpoints/\
   --checkpoint=epoch-19-val-loss-1.28.pth\
-  --infer-size=128\
+  --infer-size=96\
   --datasets=BraTS_Val\
   --datapath=./data/datasets/BraTS\
   --channel=flair\
