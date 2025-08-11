@@ -1,4 +1,4 @@
-# Interactive Brain Tumor Segmentation (BraTS)
+# Interactive Brain Tumor Segmentation (iBraTS)
 This repository contains the code and implementation details for accurately segmenting images of the human brain,
 specifically targeting tumor diagnosis and treatment planning. The proposed method utilizes deep neural networks
 with interactive segmentation techniques, aiming to improve accuracy
@@ -8,6 +8,7 @@ while minimizing user effort and computational requirements.
 
 
 ### Documents
+- [Thesis - en](./docs/iBraTS-Thesis-en.pdf)
 - [Thesis - fa](./docs/iBraTS-Thesis-fa.pdf)
 - [Slides - en](./docs/iBraTS-Slides-en.pptx)
 
